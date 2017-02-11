@@ -1,74 +1,76 @@
 document.addEventListener("DOMContentLoaded", function() {
-  function createDivWithClass(className) {
-      var d = document.createElement('div');
-      //d.classList.add(className);
-      d.className = className
-      return d;
-  };
-// function sizeOfCanvas(size){
-//   if(size === "small"){
-//     for (var i = 0; i < 10; i++) {
-//       createDivWithClass('pixel')
-//     }
-//     createDivWithClass(small)
-//   }
-var cont = document.getElementsByClassName('container')[0]
-let body = document.getElementsByTagName('body')[0];
-body.appendChild(cont);
-for (var i = 0; i < 1170; i++) {
-  cont.appendChild(createDivWithClass('pixel'));
-}
-//this is where the functionality really happens
-function colorMe(){
-  if(event.target.className === 'pixel'){
-    event.target.classList.toggle('red');
-    console.log("target hit", event.target);
-}
-}
-cont.addEventListener("click", colorMe)
+//----------------------------------make divs---------------------------------
 
-function makePalette(num){
-var palette = createDivWithClass(palette)
-body.appendChild(palette)
-for (var i = 0; i < num; i++) {
-  var paintBlobs = createDivWithClass(blobs)
-  palette.appendChild(paintBlobs)
-}
-}
-makePalette(5);
-// add style to 3 boxes
-// function button_click() {
-//     index = (index + 1) % colors.length;
-//     document.getElementById("box").style.backgroundColor = colors[index];
-//     document.getElementById("asd").style.backgroundColor = colors[index];
-//     document.getElementById("fgh").style.backgroundColor = colors[index];
-// }
+    function createDivWithClass(className) {
+        var d = document.createElement('div');
+        d.className = className
+        return d;
+    };
+    // function sizeOfCanvas(size){
+    //   if(size === "small"){
+    //     for (var i = 0; i < 10; i++) {
+    //       createDivWithClass('pixel')
+    //     }
+    //     createDivWithClass(small)
+    //   }
 
+//----------------------------------make canvas---------------------------------
 
-// returns the current color of #box
-// function getColor() {
-//        return document.getElementById("box").style.backgroundColor;
-// }
-//
-// function whichIsColor(color) {
-//       // select all elements
-//       var els = document.getElementsByTagName("div");
-//       //iterate through them
-//       for(var i in els) {
-//            // if matches the color passed in argument:
-//            if(els[i].style.backgroundColor === color) {
-//               return els[i];
-//            }
-//       }
-// }
+    var cont = document.getElementsByClassName('container')[0]
+    let body = document.getElementsByTagName('body')[0];
+    body.appendChild(cont);
+    for (var i = 0; i < 1170; i++) {
+        cont.appendChild(createDivWithClass('pixel'));
+    }
 
+//---------------------------color functionality--------------------------------
 
+    function colorMe() {
+        if (event.target.className === 'pixel') {
+            event.target.classList.toggle('red');
+            console.log("target hit", event.target);
+        }
+    }
+    cont.addEventListener("click", colorMe)
 
+//----------------------------------make palette--------------------------------
 
+    var palette = createDivWithClass('palette')
+    var wrapper = document.getElementById("divWrapper");
+    wrapper.appendChild(palette)
 
+    function makePalette(num) {
+        for (var i = 0; i < num; i++) {
+            var paintBlobs = createDivWithClass('blobs diamond')
+            palette.appendChild(paintBlobs)
+        }
+    }
+    makePalette(10);
 
+    //----------------------------------button---------------------------------
 
+    var butn = document.createElement('button');
 
+    butn.setAttribute('content', 'test content');
+    butn.setAttribute('class', 'btn');
+    butn.innerHTML = 'Click for Pallete';
+
+    var wrapper = document.getElementById("divWrapper");
+    wrapper.appendChild(butn);
+
+    butn.addEventListener("click", button_click)
+
+    function button_click() {
+        var paintBlobs = document.getElementsByClassName('blobs')
+        console.log("PAINTBLOBS", paintBlobs);
+
+//-----------------------------random color picker------------------------------
+
+        for (var i = 0; i < paintBlobs.length; i++) {
+            console.log(paintBlobs[i]);
+            paintBlobs[i].style.backgroundColor = '#' + Math.floor((Math.random() * 0xF00000) + 0x0FFFFF).toString(16);
+        }
+    }
 
 
 

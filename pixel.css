@@ -1,0 +1,26 @@
+.container {
+  height: 602px;
+  width: 782px;
+  border: 1px solid rgb(60, 57, 61);
+  border-radius: 3px;
+  box-sizing: border-box;
+
+}
+.pixel {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border: 1px solid rgb(182, 176, 182);
+  float: left;
+  border-radius: 1px;
+  box-sizing: border-box;
+}
+.red {
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  border: 1px solid rgb(182, 176, 182);
+  float: left;
+  border-radius: 1px;
+  box-sizing: border-box;
+}

@@ -34,19 +34,27 @@ var color='';
     }
     makePalette(25);
 
-//-------------------------make current paint chip------------------------------
+//----------------current paint selection------------------------------
 
-    var currentColor = createDivWithClass('circle')
+    var currentColor = createDivWithClass('lgDiamond')
     wrapper.appendChild(currentColor)
+    // var currentColorIndicator = document.getElementById('input').value
+    // console.log("CHIP",currentColorIndicator);
 
 //---------------------------color functionality--------------------------------
 
 function chooseColor(){
   if (event.target.className === 'chips diamond') {
     color = event.target.getAttribute("style");
-    currentColor.style = color
-      console.log(event.target);
-      console.log("new color choice", color);
+    currentColor.style= color
+      // console.log(event.target);
+      // console.log("new color choice", color);
+  }else if(event.target.className === 'iconos'){
+    // color = event.target
+    // currentColor.style = color
+    // currentColor.style = color
+      // console.log(event.target);
+      // console.log("new color choice", color);
   }
 }
 
@@ -57,12 +65,13 @@ function removeTheEventListener(){
 function colorMe() {
     if (event.target.className === 'pixel') {
         event.target.style = color;
-        console.log("COLOR", color);
-        console.log("target hit", event.target);
-        console.log("BACKGROUND STYLE", event.target.style);
-        console.log("BACKGROUND COLOR", event.target.style.backgroundColor);
-        cont.addEventListener('mouseover', colorMe)
+        // console.log("COLOR", color);
+        // console.log("target hit", event.target);
+        // console.log("BACKGROUND STYLE", event.target.style);
+        // console.log("BACKGROUND COLOR", event.target.style.backgroundColor);
         cont.addEventListener('mouseup', removeTheEventListener)
+        cont.addEventListener('mouseover', colorMe)
+        cont.addEventListener('doubleClick', removeTheEventListener)
 
     }
 }
@@ -81,9 +90,9 @@ function colorMe() {
 
     function button_click() {
         var paintChips = document.getElementsByClassName('chips')
-        console.log("PAINTCHIPS", paintChips);
+        //console.log("PAINTCHIPS", paintChips);
         for (var i = 0; i < paintChips.length; i++) {
-            console.log(paintChips[i]);
+            //console.log(paintChips[i]);
             paintChips[i].style.backgroundColor = '#' + Math.floor((Math.random() * 0xF00000) + 0x0FFFFF).toString(16);
         }
     }

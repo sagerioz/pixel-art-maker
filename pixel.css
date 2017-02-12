@@ -38,9 +38,16 @@
   text-align: center;
   float: left;
 }
+.circle {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  margin: auto;
+  display: block;
+}
 .diamond, .dia {
   margin: 0 auto;
-  /*transform-origin: 50% 50%;*/
   overflow: hidden;
   width: 30px;
   height: 30px;
@@ -48,7 +55,7 @@
 .diamond {
   transform: rotate(45deg) translateY(10px) translateX(10px);
 }
-.diamond .dia {
+/*.diamond .dia {
   width: 30px;
   height: 30px;
   transform: rotate(-45deg);
@@ -60,7 +67,7 @@
 .diamond img {
   position: relative;
   width: 105%; left: -7px; top: -5px;
-}
+}*/
 body {
   padding: 0; margin: auto;
   font-family: "Open Sans Condensed", "Open Sans", "Droid Sans", sans-serif;

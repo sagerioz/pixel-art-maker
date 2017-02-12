@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
+
+var color='';
+
+
 //----------------------------------make divs---------------------------------
 
     function createDivWithClass(className) {
@@ -6,13 +10,6 @@ document.addEventListener("DOMContentLoaded", function() {
         d.className = className
         return d;
     };
-    // function sizeOfCanvas(size){
-    //   if(size === "small"){
-    //     for (var i = 0; i < 10; i++) {
-    //       createDivWithClass('pixel')
-    //     }
-    //     createDivWithClass(small)
-    //   }
 
 //----------------------------------make canvas---------------------------------
 
@@ -36,19 +33,26 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
     makePalette(25);
+
 //-------------------------make current paint chip------------------------------
 
-
+    var currentColor = createDivWithClass('circle')
+    wrapper.appendChild(currentColor)
 
 //---------------------------color functionality--------------------------------
-var color='';
+
 function chooseColor(){
   if (event.target.className === 'chips diamond') {
-
     color = event.target.getAttribute("style");
+    currentColor.style = color
       console.log(event.target);
       console.log("new color choice", color);
   }
+}
+
+
+function removeTheEventListener(){
+  cont.removeEventListener("mouseover", colorMe);
 }
 function colorMe() {
     if (event.target.className === 'pixel') {
@@ -83,6 +87,14 @@ function colorMe() {
             paintChips[i].style.backgroundColor = '#' + Math.floor((Math.random() * 0xF00000) + 0x0FFFFF).toString(16);
         }
     }
+
+//------------------------input color ------------------------------------------
+
+// var theInput = document.getElementById("input");
+// var theColor = theInput.value;
+// theInput.addEventListener("input", function() {
+// document.getElementById("hex").innerHTML = theInput.value;
+// }, false);
 //---------------------------reset the canvas-----------------------------------
 
 var butn_Reset = document.createElement('button');
@@ -90,22 +102,17 @@ butn_Reset.setAttribute('class', 'btn')
 butn_Reset.innerText = "Start Over"
 wrapper.appendChild(butn_Reset)
 
-butn_Reset.addEventListener('click', resetCanvas)
-
 function resetCanvas(){
  window.location.reload(true);
 }
 
 //----------------------real paintbrush effect----------------------------------
-// e mousedown, mouseenter, and mouseup even
-// onmousedown="colorMe()"
-function removeTheEventListener(){
-  cont.removeEventListener("mouseover", colorMe);
-}
+
+
 cont.addEventListener('mousedown', colorMe)
 palette.addEventListener("click", chooseColor)
 cont.addEventListener("click", colorMe)
-
+butn_Reset.addEventListener('click', resetCanvas)
 
 //-------start session with a fresh selection of paint chips-------------------
 

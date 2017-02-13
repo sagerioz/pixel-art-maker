@@ -33,11 +33,36 @@ var color='';
         }
     }
     makePalette(25);
+//--------------------make emoji section----------------------------------------
 
-//----------------current paint selection------------------------------
+var emoji_palette = createDivWithClass('emoji-palette')
+wrapper.appendChild(emoji_palette)
+
+function makeEmojis(num){
+  for (var i = 0; i < num; i++) {
+      var emoji = createDivWithClass('emoji')
+      emoji_palette.appendChild(emoji)
+  }
+}
+makeEmojis(5);
+
+function populateEmojis(){
+  var emojis = document.getElementsByClassName('emoji')
+  console.log(emojis);
+for (var i = 1; i < 4; i++) {
+  // var imager = document.createElement('img');
+  // imager.setAttribute('src', ("/images/"+[i]+".jpg"));
+  var temp = '<img src = /images/'+[i]+'.jpg>'
+  emojis[i].innerHTML = temp
+  // emojis[i].appendChild(imager);
+}
+}
+//-------------------------current paint selection------------------------------
 
     var currentColor = createDivWithClass('lgDiamond')
-    wrapper.appendChild(currentColor)
+    emoji_palette.appendChild(currentColor)
+
+    // Trying to get it to work with the input value here:
     // var currentColorIndicator = document.getElementById('input').value
     // console.log("CHIP",currentColorIndicator);
 
@@ -49,7 +74,7 @@ function chooseColor(){
     currentColor.style= color
       // console.log(event.target);
       // console.log("new color choice", color);
-  }else if(event.target.className === 'iconos'){
+  }else if(event.target.className === 'emoji'){
     // color = event.target
     // currentColor.style = color
     // currentColor.style = color
@@ -121,6 +146,7 @@ function resetCanvas(){
 cont.addEventListener('mousedown', colorMe)
 palette.addEventListener("click", chooseColor)
 cont.addEventListener("click", colorMe)
+window.addEventListener('load', populateEmojis)
 butn_Reset.addEventListener('click', resetCanvas)
 
 //-------start session with a fresh selection of paint chips-------------------

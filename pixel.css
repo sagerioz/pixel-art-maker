@@ -59,14 +59,11 @@
 .lgDiamond {
   height: 45px;
   width: 45px;
-  transform: rotate(45deg) translateY(-370px) translateX(395px);
-  /*margin: 40px 22px;*/
-  /*margin-bottom: 10px;*/
+  transform: rotate(0deg) translateY(0px) translateX(270px);
   border: 1px solid rgb(142, 141, 139);
   box-sizing: border-box;
   display: inline-block;
-  padding-bottom: 0px;
-  border-radius: 3px;
+  border-radius: 50%;
 }
 .diamond, .dia {
   margin: 0 auto;
@@ -92,7 +89,6 @@
 }*/
 body {
   font-family: "Arial", "Open Sans", "Droid Sans", sans-serif;
-  line-height: 1.7;
   background: #f7f4e1;
   color: rgb(68, 60, 62);
 }
@@ -110,10 +106,8 @@ h1 {
   text-align: center;
   margin: auto;
 }
-smaller {
-  font-family: "Arial", "Open Sans", "Droid Sans", sans-serif;
-  font-size: 3.2em;
-  margin: auto;
+.smaller {
+  font-size: 18px;
 }
 p {
   text-align: center;
@@ -140,7 +134,8 @@ div {
   text-align: center;
   display: inline-block;*/
   display: inline-block;
-  height: 30px;
+  /*height: 30px;*/
+  margin-bottom: 10px;
 }
 img {
   margin: auto;

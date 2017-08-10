@@ -10,18 +10,19 @@
 </head>
 
 <body class="center">
-    <div>
+  <div>
     <main>
-<h1>Pixel Art Maker <h1/>
+      <h1>Pixel Art Maker <h1/>
         <div class="container">
+          <p class="smaller">Choose from color wheel
+            <input id="input" type="color" value="#ff0000" onchange="javascript:document.getElementById('chosen-color').value = document.getElementById('input').value;"/>
 
-        <p class="smaller">Choose from color wheel
-            <input type="color" value="#0194ff" id="input"/></p>
-            <div id="divWrapper">
-            </div>
+            <input id="chosen-color" type="text" readonly value="#ffffff"/>
+          </p>
+          <div id="divWrapper">
           </div>
+        </div>
     </main>
   </div>
-  </body>
-
+</body>
 </html>

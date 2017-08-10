@@ -2,7 +2,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     var color = '';
     var listen = true;
-
+    var paintChip = document.querySelector('input[type="color"]')
+console.log(paintChip);
     //----------------------------------make divs---------------------------------
 
     function createDivWithClass(className) {
@@ -23,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
     //----------------------------------make palette--------------------------------
 
     var palette = createDivWithClass('palette')
-    var wrapper = document.getElementById("divWrapper");
+    var wrapper = document.getElementById('divWrapper');
     wrapper.appendChild(palette)
 
     function makePalette(num) {
@@ -33,9 +34,10 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
     makePalette(25);
+
     //--------------------make emoji section----------------------------------------
 
-    var emoji_palette = createDivWithClass('emoji-palette')
+    var emoji_palette = createDivWithClass('emoji_palette')
     wrapper.appendChild(emoji_palette)
 
     function makeEmojis(num) {
@@ -44,73 +46,96 @@ document.addEventListener("DOMContentLoaded", function() {
             emoji_palette.appendChild(emoji)
         }
     }
-    makeEmojis(5);
+    makeEmojis(4);
 
     function populateEmojis() {
         var emojis = document.getElementsByClassName('emoji')
         console.log(emojis);
-        for (var i = 1; i < 4; i++) {
-            // var imager = document.createElement('img');
-            // imager.setAttribute('src', ("/images/"+[i]+".jpg"));
-            var temp = '<img src = /images/' + [i] + '.jpg>'
-            emojis[i].innerHTML = temp
-            // emojis[i].appendChild(imager);
+        for (var i = 0; i < 4; i++) {
+            var imager = document.createElement('img');
+            imager.setAttribute('src', ('./images/'+[i]+'.jpg'));
+            emojis[i].appendChild(imager);
         }
     }
     //-------------------------current paint selection------------------------------
 
-    var currentColor = createDivWithClass('lgDiamond')
-    emoji_palette.appendChild(currentColor)
+    var currentColorCircle = createDivWithClass('lgDiamond')
+    emoji_palette.appendChild(currentColorCircle)
+    //currentColorCircle.style = document.querySelector('input[type="color"]').value
+
 
     // Trying to get it to work with the input value here:
-    // var currentColorIndicator = document.getElementById('input').value
-    // console.log("CHIP",currentColorIndicator);
+    function currentColor(){
+      // var currentColorIndicator = document.getElementById('chosen-color').value
+      var currentColorIndicator = document.querySelector('input[type="color"]').value
+      currentColorCircle.style = currentColorIndicator
+      console.log("CHIP", currentColorIndicator);
+    }
+
 
     //---------------------------color functionality--------------------------------
+    // this converts the rgb values to a hex value
+    function rgbToHex(color) {
+      //const [m,d] = date.split('/').map(n => parseInt(n))
+      const [r,g,b] = color.split(',').map(n => parseInt(n))
+      console.log("RGB",[r,g,b])
+      return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+    }
 
     function chooseColor() {
         if (event.target.className === 'chips diamond') {
             color = event.target.getAttribute("style");
-            currentColor.style = color
-            // console.log(event.target);
+            currentColorCircle.style = color
+            console.log('chips diamond:', color);
+            let colorFix = color.slice(22);
+            //console.log("HERE", colorFix);
+            hexColorConverted = rgbToHex(colorFix);
+            document.querySelector('input[type="color"]').value = hexColorConverted
             // console.log("new color choice", color);
         } else if (event.target.className === 'emoji') {
             // color = event.target
             // currentColor.style = color
             // currentColor.style = color
-            // console.log(event.target);
+            console.log('emoji', event.target);
             // console.log("new color choice", color);
+        } else {
+          currentColorCircle.style = document.querySelector('input[type="color"]').value
         }
     }
 
-    function findValue(){
-      let inputValue = document.getElementById('input').value;
-      console.log("HERE",inputValue);
-      input.addEventListener("click", button_click)
-    }
+    // function findValue(){
+    //   let inputValue = document.getElementById('input').value;
+    //   console.log("HERE",inputValue);
+    //   input.addEventListener("click", button_click)
+    // }
 
-    function removeTheEventListener() {
-        listen = false
-        cont.removeEventListener("mouseover", colorMe);
-    }
-//listen equals whether mouse is down or not
+    // function removeTheEventListener() {
+    //     cont.removeEventListener("mouseover", colorMe);
+    //     listen = false;
+    // }
+// listen equals whether mouse is down or not
     function colorMe() {
       listen = true;
       if(listen === true){
         if (event.target.className === 'pixel') {
+          cont.addEventListener('mouseup', function() {
+              cont.removeEventListener("mouseover", colorMe);
+              listen = false;
+          })
+
           event.target.style = color;
-          // console.log("COLOR", color);
-          // console.log("target hit", event.target);
-          // console.log("BACKGROUND STYLE", event.target.style);
-          // console.log("BACKGROUND COLOR", event.target.style.backgroundColor);
+          console.log("COLOR", color);
+          //console.log("target hit", event.target);
+          console.log("BACKGROUND STYLE", event.target.style);
+          //console.log("BACKGROUND COLOR", event.target.style.backgroundColor);
           cont.addEventListener('mouseover', colorMe)
-          cont.addEventListener('mouseup', removeTheEventListener)
           //cont.addEventListener('doubleClick', removeTheEventListener)
         }
       }else{
         cont.removeEventListener("mouseover", colorMe);
       }
     }
+
 
     //----------------------------------button---------------------------------
 
@@ -135,7 +160,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //------------------------input color ------------------------------------------
 
-    // var theInput = document.getElementById("input");
+    // var theInput = document.getElementById("input").value;
     // var theColor = theInput.value;
     // theInput.addEventListener("input", function() {
     // document.getElementById("hex").innerHTML = theInput.value;
@@ -155,9 +180,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     cont.addEventListener('mousedown', colorMe)
-    palette.addEventListener("click", chooseColor)
-    cont.addEventListener("click", colorMe)
+    palette.addEventListener('click', chooseColor)
+    emoji_palette.addEventListener('click', chooseColor)
+    cont.addEventListener('click', colorMe)
     window.addEventListener('load', populateEmojis)
+    paintChip.addEventListener('click', currentColor)
     butn_Reset.addEventListener('click', resetCanvas)
 
     //-------start session with a fresh selection of paint chips-------------------

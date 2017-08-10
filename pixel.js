@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-var color='';
+    var color = '';
+    var listen = true;
 
-
-//----------------------------------make divs---------------------------------
+    //----------------------------------make divs---------------------------------
 
     function createDivWithClass(className) {
         var d = document.createElement('div');
@@ -11,7 +11,7 @@ var color='';
         return d;
     };
 
-//----------------------------------make canvas---------------------------------
+    //----------------------------------make canvas---------------------------------
 
     var cont = document.getElementsByClassName('container')[0]
     let body = document.getElementsByTagName('body')[0];
@@ -20,7 +20,7 @@ var color='';
         cont.appendChild(createDivWithClass('pixel'));
     }
 
-//----------------------------------make palette--------------------------------
+    //----------------------------------make palette--------------------------------
 
     var palette = createDivWithClass('palette')
     var wrapper = document.getElementById("divWrapper");
@@ -33,31 +33,31 @@ var color='';
         }
     }
     makePalette(25);
-//--------------------make emoji section----------------------------------------
+    //--------------------make emoji section----------------------------------------
 
-var emoji_palette = createDivWithClass('emoji-palette')
-wrapper.appendChild(emoji_palette)
+    var emoji_palette = createDivWithClass('emoji-palette')
+    wrapper.appendChild(emoji_palette)
 
-function makeEmojis(num){
-  for (var i = 0; i < num; i++) {
-      var emoji = createDivWithClass('emoji')
-      emoji_palette.appendChild(emoji)
-  }
-}
-makeEmojis(5);
+    function makeEmojis(num) {
+        for (var i = 0; i < num; i++) {
+            var emoji = createDivWithClass('emoji')
+            emoji_palette.appendChild(emoji)
+        }
+    }
+    makeEmojis(5);
 
-function populateEmojis(){
-  var emojis = document.getElementsByClassName('emoji')
-  console.log(emojis);
-for (var i = 1; i < 4; i++) {
-  // var imager = document.createElement('img');
-  // imager.setAttribute('src', ("/images/"+[i]+".jpg"));
-  var temp = '<img src = /images/'+[i]+'.jpg>'
-  emojis[i].innerHTML = temp
-  // emojis[i].appendChild(imager);
-}
-}
-//-------------------------current paint selection------------------------------
+    function populateEmojis() {
+        var emojis = document.getElementsByClassName('emoji')
+        console.log(emojis);
+        for (var i = 1; i < 4; i++) {
+            // var imager = document.createElement('img');
+            // imager.setAttribute('src', ("/images/"+[i]+".jpg"));
+            var temp = '<img src = /images/' + [i] + '.jpg>'
+            emojis[i].innerHTML = temp
+            // emojis[i].appendChild(imager);
+        }
+    }
+    //-------------------------current paint selection------------------------------
 
     var currentColor = createDivWithClass('lgDiamond')
     emoji_palette.appendChild(currentColor)
@@ -66,40 +66,51 @@ for (var i = 1; i < 4; i++) {
     // var currentColorIndicator = document.getElementById('input').value
     // console.log("CHIP",currentColorIndicator);
 
-//---------------------------color functionality--------------------------------
+    //---------------------------color functionality--------------------------------
 
-function chooseColor(){
-  if (event.target.className === 'chips diamond') {
-    color = event.target.getAttribute("style");
-    currentColor.style= color
-      // console.log(event.target);
-      // console.log("new color choice", color);
-  }else if(event.target.className === 'emoji'){
-    // color = event.target
-    // currentColor.style = color
-    // currentColor.style = color
-      // console.log(event.target);
-      // console.log("new color choice", color);
-  }
-}
-
-
-function removeTheEventListener(){
-  cont.removeEventListener("mouseover", colorMe);
-}
-function colorMe() {
-    if (event.target.className === 'pixel') {
-        event.target.style = color;
-        // console.log("COLOR", color);
-        // console.log("target hit", event.target);
-        // console.log("BACKGROUND STYLE", event.target.style);
-        // console.log("BACKGROUND COLOR", event.target.style.backgroundColor);
-        cont.addEventListener('mouseup', removeTheEventListener)
-        cont.addEventListener('mouseover', colorMe)
-        cont.addEventListener('doubleClick', removeTheEventListener)
-
+    function chooseColor() {
+        if (event.target.className === 'chips diamond') {
+            color = event.target.getAttribute("style");
+            currentColor.style = color
+            // console.log(event.target);
+            // console.log("new color choice", color);
+        } else if (event.target.className === 'emoji') {
+            // color = event.target
+            // currentColor.style = color
+            // currentColor.style = color
+            // console.log(event.target);
+            // console.log("new color choice", color);
+        }
     }
-}
+
+    function findValue(){
+      let inputValue = document.getElementById('input').value;
+      console.log("HERE",inputValue);
+      input.addEventListener("click", button_click)
+    }
+
+    function removeTheEventListener() {
+        listen = false
+        cont.removeEventListener("mouseover", colorMe);
+    }
+//listen equals whether mouse is down or not
+    function colorMe() {
+      listen = true;
+      if(listen === true){
+        if (event.target.className === 'pixel') {
+          event.target.style = color;
+          // console.log("COLOR", color);
+          // console.log("target hit", event.target);
+          // console.log("BACKGROUND STYLE", event.target.style);
+          // console.log("BACKGROUND COLOR", event.target.style.backgroundColor);
+          cont.addEventListener('mouseover', colorMe)
+          cont.addEventListener('mouseup', removeTheEventListener)
+          //cont.addEventListener('doubleClick', removeTheEventListener)
+        }
+      }else{
+        cont.removeEventListener("mouseover", colorMe);
+      }
+    }
 
     //----------------------------------button---------------------------------
 
@@ -111,7 +122,7 @@ function colorMe() {
     wrapper.appendChild(butn);
     butn.addEventListener("click", button_click)
 
-//-----------------------------random color picker------------------------------
+    //-----------------------------random color picker------------------------------
 
     function button_click() {
         var paintChips = document.getElementsByClassName('chips')
@@ -122,34 +133,34 @@ function colorMe() {
         }
     }
 
-//------------------------input color ------------------------------------------
+    //------------------------input color ------------------------------------------
 
-// var theInput = document.getElementById("input");
-// var theColor = theInput.value;
-// theInput.addEventListener("input", function() {
-// document.getElementById("hex").innerHTML = theInput.value;
-// }, false);
-//---------------------------reset the canvas-----------------------------------
+    // var theInput = document.getElementById("input");
+    // var theColor = theInput.value;
+    // theInput.addEventListener("input", function() {
+    // document.getElementById("hex").innerHTML = theInput.value;
+    // }, false);
+    //---------------------------reset the canvas-----------------------------------
 
-var butn_Reset = document.createElement('button');
-butn_Reset.setAttribute('class', 'btn')
-butn_Reset.innerText = "Start Over"
-wrapper.appendChild(butn_Reset)
+    var butn_Reset = document.createElement('button');
+    butn_Reset.setAttribute('class', 'btn')
+    butn_Reset.innerText = "Start Over"
+    wrapper.appendChild(butn_Reset)
 
-function resetCanvas(){
- window.location.reload(true);
-}
+    function resetCanvas() {
+        window.location.reload(true);
+    }
 
-//----------------------real paintbrush effect----------------------------------
+    //----------------------real paintbrush effect----------------------------------
 
 
-cont.addEventListener('mousedown', colorMe)
-palette.addEventListener("click", chooseColor)
-cont.addEventListener("click", colorMe)
-window.addEventListener('load', populateEmojis)
-butn_Reset.addEventListener('click', resetCanvas)
+    cont.addEventListener('mousedown', colorMe)
+    palette.addEventListener("click", chooseColor)
+    cont.addEventListener("click", colorMe)
+    window.addEventListener('load', populateEmojis)
+    butn_Reset.addEventListener('click', resetCanvas)
 
-//-------start session with a fresh selection of paint chips-------------------
+    //-------start session with a fresh selection of paint chips-------------------
 
-button_click()
+    button_click()
 })

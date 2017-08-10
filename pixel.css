@@ -1,7 +1,7 @@
 .container {
   height: 602px;
   width: 782px;
-  border: 1px solid rgb(182, 176, 182);
+  /*border: 1px solid rgb(182, 176, 182);*/
   border-radius: 3px;
   box-sizing: border-box;
   margin: auto;
@@ -15,7 +15,7 @@
   border-radius: 1px;
   box-sizing: border-box;
 }
-.red {
+/*.red {
   width: 20px;
   height: 20px;
   background-color: red;
@@ -23,21 +23,23 @@
   float: left;
   border-radius: 1px;
   box-sizing: border-box;
-}
+}*/
 .palette {
-  height: 80px;
+  height: 60px;
   width: 782px;
   box-sizing: border-box;
   margin: auto;
 }
 .emoji_palette {
-  height: 50px;
+  /*height: 50px;
   width: 100px;
   box-sizing: border-box;
   margin: 0 50%;
   display: inline-block;
-  clear: both;
+  clear: both;*/
   /*margin-top: 25px;*/
+  margin-bottom: auto;
+  height: 25px;
 }
 .chips {
   height: 25px;
@@ -51,20 +53,19 @@
   height: 20px;
   width: 20px;
   border-radius: 1px;
-  box-sizing: border-box;
   text-align: center;
   float: left;
 }
 .lgDiamond {
   height: 45px;
   width: 45px;
-  transform: rotate(45deg) translateY(0px) translateX(0px);
-  margin: 40px 22px;
+  transform: rotate(45deg) translateY(-370px) translateX(395px);
+  /*margin: 40px 22px;*/
   /*margin-bottom: 10px;*/
   border: 1px solid rgb(142, 141, 139);
   box-sizing: border-box;
   display: inline-block;
-  padding-bottom: 10px;
+  padding-bottom: 0px;
   border-radius: 3px;
 }
 .diamond, .dia {
@@ -90,29 +91,36 @@
   width: 105%; left: -7px; top: -5px;
 }*/
 body {
-  display: block;
-  padding: 0;
-  margin: auto;
-  font-family: "Open Sans Condensed", "Open Sans", "Droid Sans", sans-serif;
-  font-size: 1.2em;
+  font-family: "Arial", "Open Sans", "Droid Sans", sans-serif;
   line-height: 1.7;
   background: #f7f4e1;
   color: rgb(68, 60, 62);
 }
-h1, h2 {
-  font-weight: normal;
-  text-align: center;
+.center{
+  margin: auto;
+  width: 75%;
+  border: 3px solid transparent;
+  padding: 30px;
+  background-color: #fff;
 }
 h1 {
-  margin-bottom: 0;
+  font-family: 'Lobster', cursive;
+  font-size: 6.2em;
+  font-weight: normal;
+  text-align: center;
+  margin: auto;
 }
-h2 {
-  margin: 0 0 1.7em;
+smaller {
+  font-family: "Arial", "Open Sans", "Droid Sans", sans-serif;
+  font-size: 3.2em;
+  margin: auto;
 }
 p {
-  max-width: 600px;
-  margin: 3em auto;
   text-align: center;
+  font-family: "Arial", "Open Sans", "Droid Sans", sans-serif;
+  margin: auto;
+  line-height: 0.8;
+  font-size: 18px;
 }
 a {
   color: #000;
@@ -120,10 +128,19 @@ a {
 .btn {
   height: 20px;
   margin: auto;
+  text-align: center;
+  margin: auto;
 }
 div {
-  margin: auto;
+  /*margin: auto;
+  text-align: center;*/
+}
+#divWrapper {
+  /*margin: auto;
   text-align: center;
+  display: inline-block;*/
+  display: inline-block;
+  height: 30px;
 }
 img {
   margin: auto;

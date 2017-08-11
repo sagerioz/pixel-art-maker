@@ -1,9 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-    var color = '';
     var listen = true;
-    var paintChip = document.querySelector('input[type="color"]')
-console.log(paintChip);
+    var paintChipInput = document.querySelector('input[type="color"]')
+    document.querySelector('input[type="color"]').onchange=changeEventHandler;
+    var color = document.querySelector('input[type="color"]');
+
+
     //----------------------------------make divs---------------------------------
 
     function createDivWithClass(className) {
@@ -61,22 +63,26 @@ console.log(paintChip);
 
     var currentColorCircle = createDivWithClass('lgDiamond')
     emoji_palette.appendChild(currentColorCircle)
-    //currentColorCircle.style = document.querySelector('input[type="color"]').value
 
 
-    // Trying to get it to work with the input value here:
     function currentColor(){
-      // var currentColorIndicator = document.getElementById('chosen-color').value
       var currentColorIndicator = document.querySelector('input[type="color"]').value
       currentColorCircle.style = currentColorIndicator
       console.log("CHIP", currentColorIndicator);
+      color = currentColorIndicator;
+      return color;
     }
 
-
+    function changeEventHandler(event) {
+      // You can use “this” to refer to the selected element.
+      var currentColorIndicator = document.querySelector('input[type="color"]').value
+      currentColorCircle.style.backgroundColor = currentColorIndicator
+      console.log(currentColorCircle);
+      console.log("CHIP", currentColorIndicator);
+    }
     //---------------------------color functionality--------------------------------
-    // this converts the rgb values to a hex value
+
     function rgbToHex(color) {
-      //const [m,d] = date.split('/').map(n => parseInt(n))
       const [r,g,b] = color.split(',').map(n => parseInt(n))
       console.log("RGB",[r,g,b])
       return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
@@ -86,56 +92,36 @@ console.log(paintChip);
         if (event.target.className === 'chips diamond') {
             color = event.target.getAttribute("style");
             currentColorCircle.style = color
-            console.log('chips diamond:', color);
+            console.log('chips diamond:', currentColorCircle.style);
             let colorFix = color.slice(22);
-            //console.log("HERE", colorFix);
             hexColorConverted = rgbToHex(colorFix);
             document.querySelector('input[type="color"]').value = hexColorConverted
-            // console.log("new color choice", color);
-        } else if (event.target.className === 'emoji') {
-            // color = event.target
-            // currentColor.style = color
-            // currentColor.style = color
-            console.log('emoji', event.target);
-            // console.log("new color choice", color);
-        } else {
-          currentColorCircle.style = document.querySelector('input[type="color"]').value
+            console.log("new color choice", color)
+            return color;
         }
     }
 
-    // function findValue(){
-    //   let inputValue = document.getElementById('input').value;
-    //   console.log("HERE",inputValue);
-    //   input.addEventListener("click", button_click)
-    // }
-
-    // function removeTheEventListener() {
-    //     cont.removeEventListener("mouseover", colorMe);
-    //     listen = false;
-    // }
-// listen equals whether mouse is down or not
-    function colorMe() {
-      listen = true;
-      if(listen === true){
-        if (event.target.className === 'pixel') {
-          cont.addEventListener('mouseup', function() {
-              cont.removeEventListener("mouseover", colorMe);
-              listen = false;
-          })
-
-          event.target.style = color;
-          console.log("COLOR", color);
-          //console.log("target hit", event.target);
-          console.log("BACKGROUND STYLE", event.target.style);
-          //console.log("BACKGROUND COLOR", event.target.style.backgroundColor);
-          cont.addEventListener('mouseover', colorMe)
-          //cont.addEventListener('doubleClick', removeTheEventListener)
-        }
-      }else{
-        cont.removeEventListener("mouseover", colorMe);
+    function chooseEmoji(){
+      if (event.target.className === 'emoji') {
+        console.log('emoji', event.target);
       }
     }
 
+
+// listen equals whether mouse is down or not
+    function colorMe() {
+    //  listen = true;
+      if(listen === true){
+        if (event.target.className === 'pixel') {
+          cont.addEventListener('mouseup', function() {
+              cont.removeEventListener('mousedown', colorMe);
+              //listen = false;
+          })
+          event.target.style.backgroundColor = currentColorCircle.style.backgroundColor;
+          cont.addEventListener('mousedown', colorMe)
+        }
+      }
+    }
 
     //----------------------------------button---------------------------------
 
@@ -151,20 +137,11 @@ console.log(paintChip);
 
     function button_click() {
         var paintChips = document.getElementsByClassName('chips')
-        //console.log("PAINTCHIPS", paintChips);
         for (var i = 0; i < paintChips.length; i++) {
-            //console.log(paintChips[i]);
             paintChips[i].style.backgroundColor = '#' + Math.floor((Math.random() * 0xF00000) + 0x0FFFFF).toString(16);
         }
     }
 
-    //------------------------input color ------------------------------------------
-
-    // var theInput = document.getElementById("input").value;
-    // var theColor = theInput.value;
-    // theInput.addEventListener("input", function() {
-    // document.getElementById("hex").innerHTML = theInput.value;
-    // }, false);
     //---------------------------reset the canvas-----------------------------------
 
     var butn_Reset = document.createElement('button');
@@ -180,11 +157,12 @@ console.log(paintChip);
 
 
     cont.addEventListener('mousedown', colorMe)
+
     palette.addEventListener('click', chooseColor)
-    emoji_palette.addEventListener('click', chooseColor)
+    emoji_palette.addEventListener('click', chooseEmoji)
     cont.addEventListener('click', colorMe)
     window.addEventListener('load', populateEmojis)
-    paintChip.addEventListener('click', currentColor)
+    paintChipInput.addEventListener('click', currentColor)
     butn_Reset.addEventListener('click', resetCanvas)
 
     //-------start session with a fresh selection of paint chips-------------------
